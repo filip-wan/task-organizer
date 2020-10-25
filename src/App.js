@@ -1,5 +1,13 @@
 import React from 'react';
+import { HashRouter } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Routes from './components/Routes';
 
-export default () => {
-  return <div className='App'>test</div>;
-};
+const App = () => (
+  <HashRouter>
+    <Navbar />
+    <Routes />
+  </HashRouter>
+);
+
+export default App;
