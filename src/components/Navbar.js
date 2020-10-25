@@ -1,13 +1,7 @@
 import React from 'react';
-import { Link, HashRouter, Switch, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import MenuIcon from '@material-ui/icons/Menu';
-import {
-  AppBar,
-  Button,
-  IconButton,
-  Toolbar,
-  Typography,
-} from '@material-ui/core';
+import { AppBar, Button, IconButton, Toolbar } from '@material-ui/core';
 
 const Navbar = () => {
   return (
