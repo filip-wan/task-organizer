@@ -1,14 +1,22 @@
 import { Button } from '@material-ui/core';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { selectSlice } from '../../store';
-import { itemsSlice, pushItem } from '../../store/slices/itemsSlice';
+import {
+  itemsSlice,
+  pushItem,
+  fetchAllNotes,
+} from '../../store/slices/itemsSlice';
 import Item from './Item';
 
 const Home = () => {
   const dispatch = useDispatch();
   const items = selectSlice(itemsSlice)();
+
+  useEffect(() => {
+    dispatch(fetchAllNotes());
+  }, []);
 
   return (
     <div>
@@ -26,7 +34,7 @@ const Home = () => {
         Add Me
       </Button>
       {items.map((item) => (
-        <Item item={item} key={item.id} />
+        <Item item={item} key={item._id} />
       ))}
     </div>
   );
