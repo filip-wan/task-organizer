@@ -5,8 +5,8 @@ import { useDispatch } from 'react-redux';
 import { selectSlice } from '../../store';
 import {
   itemsSlice,
-  pushItem,
   fetchAllNotes,
+  postNote,
 } from '../../store/slices/itemsSlice';
 import Item from './Item';
 
@@ -16,16 +16,15 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(fetchAllNotes());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div>
       <Button
         onClick={(e) =>
           dispatch(
-            pushItem({
+            postNote({
               name: 'Karol',
-              id: items.length,
               position: { x: 0, y: 0 },
               size: { height: 30, width: 500 },
             })
@@ -34,7 +33,7 @@ const Home = () => {
         Add Me
       </Button>
       {items.map((item) => (
-        <Item item={item} key={item._id} />
+        <Item item={item} key={item._id}></Item>
       ))}
     </div>
   );

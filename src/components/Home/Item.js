@@ -4,13 +4,9 @@ import Draggable from 'react-draggable';
 import { ResizableBox } from 'react-resizable';
 
 import { selectSlice } from '../../store';
-import {
-  itemsSlice,
-  editItem,
-  removeItem,
-} from '../../store/slices/itemsSlice';
+import { itemsSlice, deleteNote, putNote } from '../../store/slices/itemsSlice';
 
-const Item = ({ item }) => {
+const Item = ({ item, children }) => {
   const dispatch = useDispatch();
   const items = selectSlice(itemsSlice)();
   console.log(items, '🛅🛅🛅');
@@ -18,17 +14,16 @@ const Item = ({ item }) => {
   return (
     <Draggable
       onStop={(_e, data) =>
-        dispatch(editItem({ id: item.id, position: { x: data.x, y: data.y } }))
+        dispatch(putNote({ id: item.id, position: { x: data.x, y: data.y } }))
       }
       key={item.id}
       cancel='.button-resize'
       defaultPosition={{ ...item.position }}>
       <ResizableBox
-        // {...items.size}
         height={item.size.height}
         width={item.size.width}
         onResizeStop={(_e, data) =>
-          dispatch(editItem({ id: item.id, size: data.size }))
+          dispatch(putNote({ id: item.id, size: data.size }))
         }
         handle={
           <button
@@ -53,25 +48,28 @@ const Item = ({ item }) => {
           border: '2px solid black',
           position: 'absolute',
         }}>
-        <button
-          className='button-exit'
-          onClick={() => dispatch(removeItem({ id: item.id }))}
-          style={{
-            borderRadius: '40px',
-            size: '2rem',
-            border: '0px',
-            right: 0,
-            top: '-1rem',
-            height: 0,
-            width: 0,
-            position: 'absolute',
-            background: 'none',
-            cursor: 'pointer',
-            outline: 'none',
-            fontSize: 'initial',
-          }}>
-          ❌
-        </button>
+        <>
+          <button
+            className='button-exit'
+            onClick={() => dispatch(deleteNote({ id: item.id }))}
+            style={{
+              borderRadius: '40px',
+              size: '2rem',
+              border: '0px',
+              right: 0,
+              top: '-1rem',
+              height: 0,
+              width: 0,
+              position: 'absolute',
+              background: 'none',
+              cursor: 'pointer',
+              outline: 'none',
+              fontSize: 'initial',
+            }}>
+            ❌
+          </button>
+          {children}
+        </>
       </ResizableBox>
     </Draggable>
   );
