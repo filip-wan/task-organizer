@@ -4,7 +4,7 @@ import Draggable from 'react-draggable';
 import { ResizableBox } from 'react-resizable';
 
 import { selectSlice } from '../../store';
-import { itemsSlice, deleteNote, putNote } from '../../store/slices/itemsSlice';
+import { itemsSlice, deleteItem, putItem } from '../../store/slices/itemsSlice';
 
 const Item = ({ item, children }) => {
   const dispatch = useDispatch();
@@ -13,8 +13,8 @@ const Item = ({ item, children }) => {
 
   return (
     <Draggable
-      onStop={(_e, data) =>
-        dispatch(putNote({ id: item.id, position: { x: data.x, y: data.y } }))
+      onStop={(_e, { x, y }) =>
+        dispatch(putItem({ id: item.id, type: item.type, position: { x, y } }))
       }
       key={item.id}
       cancel='.button-resize'
@@ -22,8 +22,8 @@ const Item = ({ item, children }) => {
       <ResizableBox
         height={item.size.height}
         width={item.size.width}
-        onResizeStop={(_e, data) =>
-          dispatch(putNote({ id: item.id, size: data.size }))
+        onResizeStop={(_e, { size }) =>
+          dispatch(putItem({ id: item.id, type: item.type, size }))
         }
         handle={
           <button
@@ -51,7 +51,9 @@ const Item = ({ item, children }) => {
         <>
           <button
             className='button-exit'
-            onClick={() => dispatch(deleteNote({ id: item.id }))}
+            onClick={() =>
+              dispatch(deleteItem({ id: item.id, type: item.type }))
+            }
             style={{
               borderRadius: '40px',
               size: '2rem',

@@ -1,5 +1,5 @@
 const api = async (method, url, callback, body) =>
-  await fetch(process.env.REACT_APP_API_URL + url, {
+  fetch(process.env.REACT_APP_API_URL + url, {
     headers: { 'Content-Type': 'application/json' },
     method,
     body,

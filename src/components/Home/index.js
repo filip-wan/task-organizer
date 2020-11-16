@@ -5,17 +5,18 @@ import { useDispatch } from 'react-redux';
 import { selectSlice } from '../../store';
 import {
   itemsSlice,
-  fetchAllNotes,
-  postNote,
+  fetchAllItems,
+  postItem,
 } from '../../store/slices/itemsSlice';
 import Item from './Item';
+import Note from './Note';
 
 const Home = () => {
   const dispatch = useDispatch();
   const items = selectSlice(itemsSlice)();
 
   useEffect(() => {
-    dispatch(fetchAllNotes());
+    dispatch(fetchAllItems());
   }, [dispatch]);
 
   return (
@@ -23,17 +24,22 @@ const Home = () => {
       <Button
         onClick={(e) =>
           dispatch(
-            postNote({
+            postItem({
+              type: 'note',
               name: 'Karol',
-              position: { x: 0, y: 0 },
-              size: { height: 30, width: 500 },
+              title: 'ABC',
+              description: 'sjdbgkbhsdghdskbgfjkdsg',
+              position: { x: 20, y: 20 },
+              size: { height: 400, width: 500 },
             })
           )
         }>
         Add Me
       </Button>
       {items.map((item) => (
-        <Item item={item} key={item._id}></Item>
+        <Item item={item} key={item.id}>
+          {item.type === 'note' && <Note item={item} />}
+        </Item>
       ))}
     </div>
   );

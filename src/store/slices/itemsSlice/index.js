@@ -1,21 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { deleteNote } from './deleteNote';
-import { fetchAllNotes } from './fetchAllNotes';
-import { postNote } from './postNote';
-import { putNote } from './putNote';
-export { deleteNote, fetchAllNotes, postNote, putNote };
+import { deleteItem } from './deleteItem';
+import { fetchAllItems } from './fetchAllItems';
+import { postItem } from './postItem';
+import { putItem } from './putItem';
+export { deleteItem, fetchAllItems, postItem, putItem };
 
 export const itemsSlice = createSlice({
   name: 'items',
   initialState: [],
   extraReducers: {
-    [deleteNote.fulfilled]: (state, action) =>
-      state.filter((item) => item.id !== action.payload._id),
-    [fetchAllNotes.fulfilled]: (state, action) => action.payload,
-    [postNote.fulfilled]: (state, action) => {
+    [deleteItem.fulfilled]: (state, action) =>
+      state.filter((item) => item.id !== action.payload.id),
+    [fetchAllItems.fulfilled]: (state, action) => action.payload,
+    [postItem.fulfilled]: (state, action) => {
       state.push(action.payload);
     },
-    [putNote.fulfilled]: (state, action) =>
+    [putItem.fulfilled]: (state, action) =>
       state.map((item) =>
         item.id === action.payload.id ? { ...item, ...action.payload } : item
       ),
