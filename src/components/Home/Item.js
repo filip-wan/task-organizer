@@ -2,6 +2,9 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import Draggable from 'react-draggable';
 import { ResizableBox } from 'react-resizable';
+import AllOutIcon from '@material-ui/icons/AllOut';
+import CloseIcon from '@material-ui/icons/Close';
+
 import { deleteItem, putItem } from '../../store/slices/itemsSlice';
 
 const Item = ({ item, children }) => {
@@ -19,6 +22,7 @@ const Item = ({ item, children }) => {
       cancel='.button-resize'
       defaultPosition={{ ...item.position }}>
       <ResizableBox
+        minConstraints={[120, 120]}
         height={item.size.height}
         width={item.size.width}
         onResizeStop={(_e, { size }) => {
@@ -34,17 +38,17 @@ const Item = ({ item, children }) => {
             style={{
               borderRadius: '40px',
               border: '0px',
-              right: 0,
-              bottom: 0,
+              right: '.4em',
+              bottom: '0.6em',
               height: 0,
               width: 0,
               position: 'absolute',
               background: 'none',
-              cursor: 'pointer',
+              cursor: 'se-resize',
               outline: 'none',
               fontSize: 'initial',
             }}>
-            🤏
+            <AllOutIcon color='disabled' />
           </button>
         }
         style={{
@@ -60,7 +64,7 @@ const Item = ({ item, children }) => {
               borderRadius: '40px',
               size: '2rem',
               border: '0px',
-              right: 0,
+              right: '.4em',
               top: '-1rem',
               height: 0,
               width: 0,
@@ -70,7 +74,7 @@ const Item = ({ item, children }) => {
               outline: 'none',
               fontSize: 'initial',
             }}>
-            ❌
+            <CloseIcon color='error' />
           </button>
           {children}
         </>
