@@ -7,7 +7,7 @@ export const putItem = createAsyncThunk(
     api(
       'PUT',
       type + 's/' + id,
-      ({ _id: id, ...data }) => ({ data, id, type }),
+      ({ _id: id, ...data }) => ({ ...data, id, type }),
       JSON.stringify(body)
     )
 );

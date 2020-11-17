@@ -15,10 +15,12 @@ export const itemsSlice = createSlice({
     [postItem.fulfilled]: (state, action) => {
       state.push(action.payload);
     },
-    [putItem.fulfilled]: (state, action) =>
-      state.map((item) =>
+    [putItem.fulfilled]: (state, action) => {
+      console.log(action.payload);
+      return state.map((item) =>
         item.id === action.payload.id ? { ...item, ...action.payload } : item
-      ),
+      );
+    },
   },
 });
 

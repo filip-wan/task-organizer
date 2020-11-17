@@ -5,7 +5,7 @@ import { AppBar, Button, IconButton, Toolbar } from '@material-ui/core';
 
 const Navbar = () => {
   return (
-    <AppBar position='static' color='secondary'>
+    <AppBar position='static' color='primary'>
       <Toolbar>
         <IconButton edge='start' color='inherit' aria-label='menu'>
           <MenuIcon />

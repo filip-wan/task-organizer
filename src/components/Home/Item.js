@@ -2,29 +2,32 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import Draggable from 'react-draggable';
 import { ResizableBox } from 'react-resizable';
-
-import { selectSlice } from '../../store';
-import { itemsSlice, deleteItem, putItem } from '../../store/slices/itemsSlice';
+import { deleteItem, putItem } from '../../store/slices/itemsSlice';
 
 const Item = ({ item, children }) => {
   const dispatch = useDispatch();
-  const items = selectSlice(itemsSlice)();
-  console.log(items, '🛅🛅🛅');
 
   return (
     <Draggable
-      onStop={(_e, { x, y }) =>
-        dispatch(putItem({ id: item.id, type: item.type, position: { x, y } }))
-      }
+      onStop={(_e, { x, y }) => {
+        if (x !== item.position.x && y !== item.position.y)
+          dispatch(
+            putItem({ id: item.id, type: item.type, position: { x, y } })
+          );
+      }}
       key={item.id}
       cancel='.button-resize'
       defaultPosition={{ ...item.position }}>
       <ResizableBox
         height={item.size.height}
         width={item.size.width}
-        onResizeStop={(_e, { size }) =>
-          dispatch(putItem({ id: item.id, type: item.type, size }))
-        }
+        onResizeStop={(_e, { size }) => {
+          if (
+            size.width !== item.size.width &&
+            size.height !== item.size.height
+          )
+            dispatch(putItem({ id: item.id, type: item.type, size }));
+        }}
         handle={
           <button
             className='button-resize'
@@ -45,7 +48,6 @@ const Item = ({ item, children }) => {
           </button>
         }
         style={{
-          border: '2px solid black',
           position: 'absolute',
         }}>
         <>

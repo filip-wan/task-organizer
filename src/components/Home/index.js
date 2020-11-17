@@ -27,8 +27,6 @@ const Home = () => {
             postItem({
               type: 'note',
               name: 'Karol',
-              title: 'ABC',
-              description: 'sjdbgkbhsdghdskbgfjkdsg',
               position: { x: 20, y: 20 },
               size: { height: 400, width: 500 },
             })
