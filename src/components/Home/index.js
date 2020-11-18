@@ -21,6 +21,21 @@ const Home = () => {
 
   return (
     <div>
+      <a href='http://localhost:3002/auth/github'>
+        <Button type={'github'} label={'Login with Github'} height={50}>
+          Github
+        </Button>
+      </a>
+      <a href='http://localhost:3002/auth/facebook'>
+        <Button type={'github'} label={'Login with Github'} height={50}>
+          Facebook
+        </Button>
+      </a>
+      <a href='http://localhost:3002/logout'>
+        <Button type={'github'} label={'Login with Github'} height={50}>
+          logout
+        </Button>
+      </a>
       <Button
         onClick={(e) =>
           dispatch(
