@@ -9,7 +9,6 @@ import { deleteItem, putItem } from '../../store/slices/itemsSlice';
 
 const Item = ({ item, children }) => {
   const dispatch = useDispatch();
-
   return (
     <Draggable
       onStop={(_e, { x, y }) => {

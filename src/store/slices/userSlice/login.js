@@ -2,8 +2,5 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import api from '../../../api';
 
 export const login = createAsyncThunk('user/login', async () =>
-  api('GET', `auth`, (data) => {
-    console.log(data);
-    return data;
-  })
+  api('GET', `auth`)
 );

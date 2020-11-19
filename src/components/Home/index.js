@@ -12,6 +12,7 @@ import {
 import { login, userSlice } from '../../store/slices/userSlice';
 import Item from './Item';
 import Note from './Note';
+import Todo from './Todo/index.js';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -37,17 +38,29 @@ const Home = () => {
           dispatch(
             postItem({
               type: 'note',
-              name: 'Karol',
               position: { x: 20, y: 20 },
-              size: { height: 400, width: 500 },
+              size: { height: 400, width: 200 },
             })
           )
         }>
-        Add Me
+        Add Note
+      </Button>
+      <Button
+        onClick={(e) =>
+          dispatch(
+            postItem({
+              type: 'todo',
+              position: { x: 20, y: 20 },
+              size: { height: 400, width: 200 },
+            })
+          )
+        }>
+        Add Todo
       </Button>
       {items.map((item) => (
         <Item item={item} key={item.id}>
           {item.type === 'note' && <Note item={item} />}
+          {item.type === 'todo' && <Todo item={item} />}
         </Item>
       ))}
     </div>
