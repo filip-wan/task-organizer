@@ -1,41 +1,37 @@
 import { Button } from '@material-ui/core';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import { selectSlice } from '../../store';
 import {
-  itemsSlice,
   fetchAllItems,
+  itemsSlice,
   postItem,
 } from '../../store/slices/itemsSlice';
+import { login, userSlice } from '../../store/slices/userSlice';
 import Item from './Item';
 import Note from './Note';
 
 const Home = () => {
   const dispatch = useDispatch();
+  const user = selectSlice(userSlice)();
   const items = selectSlice(itemsSlice)();
+  const [loginRedirect, setLoginRedirect] = useState(false);
 
   useEffect(() => {
-    dispatch(fetchAllItems());
+    dispatch(login()).then(
+      (e) => e.payload.success && dispatch(fetchAllItems())
+    );
   }, [dispatch]);
+
+  useEffect(() => {
+    setLoginRedirect(!(user.authorized ?? true));
+  }, [user.authorized]);
 
   return (
     <div>
-      <a href='http://localhost:3002/auth/github'>
-        <Button type={'github'} label={'Login with Github'} height={50}>
-          Github
-        </Button>
-      </a>
-      <a href='http://localhost:3002/auth/facebook'>
-        <Button type={'github'} label={'Login with Github'} height={50}>
-          Facebook
-        </Button>
-      </a>
-      <a href='http://localhost:3002/logout'>
-        <Button type={'github'} label={'Login with Github'} height={50}>
-          logout
-        </Button>
-      </a>
+      {loginRedirect && <Redirect to='login' />}
       <Button
         onClick={(e) =>
           dispatch(

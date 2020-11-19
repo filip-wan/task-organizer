@@ -5,10 +5,10 @@ const api = async (method, url, callback, body) =>
     credentials: 'include',
     body,
   })
-    .then((response) => response.json())
+    .then((response) => response.status === 200 && response.json())
     .then(callback)
     .finally((response) =>
-      console.log(method, process.env.REACT_APP_API_URL + 'notes', response)
+      console.log(method, process.env.REACT_APP_API_URL + url, response)
     )
     .catch((err) => console.error('ERROR!', err));
 

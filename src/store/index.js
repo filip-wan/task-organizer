@@ -4,7 +4,7 @@ import {
   getDefaultMiddleware,
 } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
-import user from './slices/userSlice';
+import user from './slices/userSlice/index.js';
 import items from './slices/itemsSlice/index.js';
 
 export const selectSlice = (slice) => () =>
