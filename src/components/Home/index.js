@@ -12,6 +12,7 @@ import {
 import { login, userSlice } from '../../store/slices/userSlice';
 import Item from './Item';
 import Note from './Note';
+import TimeTable from './TimeTable';
 import Todo from './Todo/index.js';
 
 const Home = () => {
@@ -57,10 +58,23 @@ const Home = () => {
         }>
         Add Todo
       </Button>
+      <Button
+        onClick={(e) =>
+          dispatch(
+            postItem({
+              type: 'timeTable',
+              position: { x: 20, y: 20 },
+              size: { height: 400, width: 200 },
+            })
+          )
+        }>
+        Add TimeTable
+      </Button>
       {items.map((item) => (
         <Item item={item} key={item.id}>
           {item.type === 'note' && <Note item={item} />}
           {item.type === 'todo' && <Todo item={item} />}
+          {item.type === 'timeTable' && <TimeTable item={item} />}
         </Item>
       ))}
     </div>

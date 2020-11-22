@@ -18,7 +18,7 @@ const Item = ({ item, children }) => {
           );
       }}
       key={item.id}
-      cancel='.button-resize'
+      cancel='.button-resize, .react-calendar'
       defaultPosition={{ ...item.position }}>
       <ResizableBox
         minConstraints={[120, 120]}

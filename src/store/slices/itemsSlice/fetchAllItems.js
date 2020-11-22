@@ -8,7 +8,7 @@ export const fetchAllItems = createAsyncThunk('items/fetchAll', async () => [
   ...(await api('GET', 'todos', (data) =>
     data.map(({ _id: id, ...data }) => ({ ...data, id, type: 'todo' }))
   )),
-  // ...(await api('GET', 'timetables', (data) =>
-  //   data.map(({ _id: id, ...data }) => ({ ...data, id, type: 'timetable' }))
-  // )),
+  ...(await api('GET', 'timetables', (data) =>
+    data.map(({ _id: id, ...data }) => ({ ...data, id, type: 'timeTable' }))
+  )),
 ]);
