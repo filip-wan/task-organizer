@@ -1,14 +1,16 @@
 import { Button, Card } from '@material-ui/core';
 import React from 'react';
-import { useDispatch } from 'react-redux';
-
-import { logout } from '../../store/slices/userSlice/index.js';
 
 const Login = () => {
-  const dispatch = useDispatch();
-
   return (
-    <Card>
+    <Card
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        padding: 10,
+        margin: '10% auto',
+        width: 'fit-content',
+      }}>
       <Button
         href={process.env.REACT_APP_API_URL + 'auth/github'}
         type={'github'}
@@ -29,15 +31,6 @@ const Login = () => {
         label={'Login with Google'}
         height={50}>
         Google
-      </Button>
-      <Button
-        onClick={() => {
-          dispatch(logout());
-        }}
-        type={'logout'}
-        label={'Logout'}
-        height={50}>
-        Logout
       </Button>
     </Card>
   );

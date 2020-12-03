@@ -23,7 +23,7 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(login()).then(
-      (e) => e.payload.success && dispatch(fetchAllItems())
+      (e) => e.payload?.success && dispatch(fetchAllItems())
     );
   }, [dispatch]);
 

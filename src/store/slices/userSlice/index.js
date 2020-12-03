@@ -8,8 +8,8 @@ export const userSlice = createSlice({
   initialState: {},
   extraReducers: {
     [login.fulfilled]: (_state, action) => ({
-      ...action.payload.user,
-      authorized: action.payload.success,
+      ...(action.payload?.user ?? {}),
+      authorized: action.payload?.success,
     }),
     [logout.fulfilled]: (_state, _action) => ({
       authorized: false,
