@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { Card, List, TextField } from '@material-ui/core';
+import React, { useState } from 'react';
 
-import { putItem } from '../../../store/slices/itemsSlice';
 import TodoItem from './TodoItem';
+import { putItem } from '../../../store/slices/itemsSlice';
+import { useDispatch } from 'react-redux';
 
 const Todo = ({ item }) => {
   const dispatch = useDispatch();
@@ -13,7 +13,6 @@ const Todo = ({ item }) => {
     !!item.description
   );
 
-  console.log(item, 'ITEM');
   return (
     <Card
       style={{

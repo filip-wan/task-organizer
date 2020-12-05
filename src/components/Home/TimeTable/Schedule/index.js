@@ -27,7 +27,6 @@ const Schedule = ({ item }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(item, 'AAAAAAA');
     item.google &&
       !item.events?.length &&
       api('GET', 'calendar/events/?calendarId=' + item.google, (data) =>
@@ -45,7 +44,7 @@ const Schedule = ({ item }) => {
             recurrence: c.recurrence,
           }))
       ).then((data) => setRules(data));
-  }, [item.google]);
+  }, [item.google, item.events?.length]);
 
   return (
     <Card className={classes.schedule}>
@@ -71,14 +70,6 @@ const Schedule = ({ item }) => {
           className={classes.saveButton}
           disabled={selectedEvents.length <= 0}
           onClick={() => {
-            console.log(
-              rules
-                .filter((r) => selectedEvents.find((e) => e.id === r.googleId))
-                .map((r) => ({
-                  ...r,
-                  day: selectedEvents.find((e) => e.id === r.googleId).day,
-                }))
-            );
             selectedEvents.length > 0 &&
               dispatch(
                 putItem({

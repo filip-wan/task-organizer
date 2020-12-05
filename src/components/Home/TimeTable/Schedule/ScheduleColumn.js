@@ -1,15 +1,14 @@
 import 'react-calendar/dist/Calendar.css';
 
 import { Card, Divider, List, ListItem } from '@material-ui/core';
-import React, { useState } from 'react';
 import { days, getHour } from './utils';
 
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 const ScheduleColumn = ({ day, events, selectedEvents = [] }) => {
   const classes = useStyles();
   const [pickedEvents, setPickedEvents] = selectedEvents;
-  console.log(events, 'ENEVESFD', day);
   return (
     <List>
       <ListItem>{days[day]}</ListItem>
