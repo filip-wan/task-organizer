@@ -1,5 +1,6 @@
 import React from 'react';
 import ScheduleColumn from './ScheduleColumn';
+import { rrulestr } from 'rrule';
 
 export const days = {
   0: 'Mon',
@@ -19,21 +20,21 @@ export const getDate = (days) => {
   return [date, secondDate];
 };
 
-export const getColumns = (daysToMap, { rules = [], events = [] }) =>
+export const getColumns = (daysToMap, { rules = [] }, selectedEvents) =>
   Object.keys(daysToMap).map((day) => (
     <ScheduleColumn
       key={day}
-      day={days[day]}
-      test={getDate(day)}
+      day={day}
+      selectedEvents={selectedEvents}
       events={[
         ...rules.reduce(
           (arr, r) => [
             ...arr,
-            ...r.rule
+            ...rrulestr(r.recurrence.join('\n'))
               .between(...getDate(day))
-              .map((e) => ({ date: e, event: r })),
+              .map((date) => ({ ...r, date })),
           ],
-          events
+          []
         ),
       ]}
     />

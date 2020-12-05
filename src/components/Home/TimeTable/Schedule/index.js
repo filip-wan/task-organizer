@@ -1,13 +1,16 @@
 import 'react-calendar/dist/Calendar.css';
 
-import { Card, CircularProgress, Grid } from '@material-ui/core';
+import { Card, CircularProgress, Grid, IconButton } from '@material-ui/core';
 import { RRule, rrulestr } from 'rrule';
 import React, { useEffect, useState } from 'react';
-import { days, getColumns, getDate } from './utils';
+import { days, getColumns } from './utils';
 
 import CalendarPicker from './CalendarPicker';
+import SaveIcon from '@material-ui/icons/Save';
 import api from '../../../../api';
 import { makeStyles } from '@material-ui/core/styles';
+import { putItem } from '../../../../store/slices/itemsSlice';
+import { useDispatch } from 'react-redux';
 
 const frequencies = [
   RRule.SECONDLY,
@@ -20,37 +23,29 @@ const frequencies = [
 const Schedule = ({ item }) => {
   const classes = useStyles();
   const [rules, setRules] = useState();
+  const [selectedEvents, setSelectedEvents] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log(item, 'AAAAAAA');
     item.google &&
-      !item.events &&
-      api(
-        'GET',
-        'calendar/events/?calendarId=' + item.google
-        // (data) => setCalendar(data)
-      ).then((data) =>
-        setRules(
-          data
-            .filter((c) => c.recurrence)
-            .map((c) => ({ ...c, rule: rrulestr(c.recurrence.join('\n')) }))
-            .filter((c) => frequencies.includes(c.rule.options.freq))
-        )
-      );
+      !item.events?.length &&
+      api('GET', 'calendar/events/?calendarId=' + item.google, (data) =>
+        data
+          .filter((c) => c.recurrence)
+          .map((c) => ({ ...c, rule: rrulestr(c.recurrence.join('\n')) }))
+          .filter((c) => frequencies.includes(c.rule.options.freq))
+          .map((c) => ({
+            dateCreated: c.created,
+            dateStart: c.start.dateTime,
+            dateEnd: c.end.dateTime,
+            googleId: c.id,
+            description: c.description,
+            summary: c.summary,
+            recurrence: c.recurrence,
+          }))
+      ).then((data) => setRules(data));
   }, [item.google]);
-
-  // console.log(calendar);
-
-  // const rules = calendar
-  //   .filter((c) => c.recurrence)
-  //   .map((c) => ({ ...c, rule: rrulestr(c.recurrence.join('\n')) }))
-  //   .filter((c) => frequencies.includes(c.rule.options.freq));
-
-  // console.log(
-  //   '%c RULE \n',
-  //   'background: gold; color: green',
-  //   rules,
-  //   rules.map((r) => r.rule?.options?.freq)
-  // );
 
   return (
     <Card className={classes.schedule}>
@@ -58,12 +53,10 @@ const Schedule = ({ item }) => {
         <Grid item xs={12}>
           <Grid container justify='space-evenly' spacing={2}>
             {item.google ? (
-              rules ? (
-                item.events ? (
-                  getColumns(days, { events: item.events })
-                ) : (
-                  getColumns(days, { rules })
-                )
+              item.events?.length ? (
+                getColumns(days, { rules: item.events })
+              ) : rules ? (
+                getColumns(days, { rules }, [selectedEvents, setSelectedEvents])
               ) : (
                 <CircularProgress />
               )
@@ -73,6 +66,34 @@ const Schedule = ({ item }) => {
           </Grid>
         </Grid>
       </Grid>
+      {item.google && !item.events?.length && (
+        <IconButton
+          className={classes.saveButton}
+          disabled={selectedEvents.length <= 0}
+          onClick={() => {
+            console.log(
+              rules
+                .filter((r) => selectedEvents.find((e) => e.id === r.googleId))
+                .map((r) => ({
+                  ...r,
+                  day: selectedEvents.find((e) => e.id === r.googleId).day,
+                }))
+            );
+            selectedEvents.length > 0 &&
+              dispatch(
+                putItem({
+                  id: item.id,
+                  type: item.type,
+                  events: rules.filter((r) =>
+                    selectedEvents.find((e) => e.id === r.googleId)
+                  ),
+                })
+              );
+          }}
+          aria-label='save timetable'>
+          <SaveIcon />
+        </IconButton>
+      )}
     </Card>
   );
 };
@@ -86,6 +107,11 @@ const useStyles = makeStyles({
   },
   grid: {
     overflow: 'auto',
+  },
+  saveButton: {
+    position: 'absolute',
+    right: 10,
+    bottom: 10,
   },
 });
 

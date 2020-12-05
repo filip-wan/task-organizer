@@ -2,47 +2,50 @@ import 'react-calendar/dist/Calendar.css';
 
 import { Card, Divider, List, ListItem } from '@material-ui/core';
 import React, { useState } from 'react';
+import { days, getHour } from './utils';
 
-import { getHour } from './utils';
 import { makeStyles } from '@material-ui/core/styles';
 
-const ScheduleColumn = ({ day, events }) => {
+const ScheduleColumn = ({ day, events, selectedEvents = [] }) => {
   const classes = useStyles();
-  const [pickedEvents, setPickedEvents] = useState([]);
+  const [pickedEvents, setPickedEvents] = selectedEvents;
   console.log(events, 'ENEVESFD', day);
-  // console.log(test);
   return (
     <List>
-      <ListItem>{day}</ListItem>
+      <ListItem>{days[day]}</ListItem>
       <Divider />
       {events
         .sort(
           (a, b) =>
-            new Date(b.event.start.dateTime).valueOf() -
-            new Date(a.event.start.dateTime).valueOf()
+            new Date(b.dateStart).valueOf() - new Date(a.dateEnd).valueOf()
         )
         .map((event) => {
-          const start = new Date(event.event.start.dateTime);
-          const end = new Date(event.event.end.dateTime);
+          const start = new Date(event.dateStart);
+          const end = new Date(event.dateEnd);
 
           return (
             <ListItem
-              key={event.event.id}
+              key={event.googleId}
               className={classes.item}
               button
               onClick={() => {
-                if (pickedEvents.includes(event.event.id))
+                if (!pickedEvents) return;
+                if (pickedEvents.find((e) => e.id === event.googleId))
                   setPickedEvents(
-                    pickedEvents.filter((e) => e !== event.event.id)
+                    pickedEvents.filter((e) => e.id !== event.googleId)
                   );
-                else setPickedEvents([...pickedEvents, event.event.id]);
+                else
+                  setPickedEvents([
+                    ...pickedEvents,
+                    { id: event.googleId, day },
+                  ]);
               }}>
               <Card
-                raised={pickedEvents.includes(event.event.id)}
+                raised={!!pickedEvents?.find((e) => e.id === event.googleId)}
                 className={classes.itemCard}>
                 {`${getHour(start)} - ${getHour(end)}`}
                 <br />
-                {event.event.summary}
+                {event.summary}
               </Card>
               <Divider />
             </ListItem>
