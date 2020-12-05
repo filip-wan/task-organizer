@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import Calendar from 'react-calendar';
-import { Card, TextField } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import 'react-calendar/dist/Calendar.css';
 
-import { putItem } from '../../store/slices/itemsSlice';
+import { Card, TextField } from '@material-ui/core';
+import React, { useState } from 'react';
+
+import CustomCalendar from './CustomCalendar';
+import Schedule from './Schedule';
+import { makeStyles } from '@material-ui/core/styles';
+import { putItem } from '../../../store/slices/itemsSlice';
+import { useDispatch } from 'react-redux';
 
 const TimeTable = ({ item }) => {
   const dispatch = useDispatch();
@@ -56,7 +58,7 @@ const TimeTable = ({ item }) => {
           }}
         />
       )}
-      <Calendar />
+      {false ? <CustomCalendar /> : <Schedule item={item} />}
     </Card>
   );
 };
@@ -68,12 +70,6 @@ const useStyles = makeStyles({
     height: '100%',
     width: '100%',
     padding: 10,
-    '& .react-calendar': {
-      borderRadius: '0 0 10px 10px',
-      border: 'none',
-      width: 'auto',
-      background: '#ffffff11',
-    },
   },
 });
 

@@ -1,19 +1,19 @@
-import { Button } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-
-import { selectSlice } from '../../store';
 import {
   fetchAllItems,
   itemsSlice,
   postItem,
 } from '../../store/slices/itemsSlice';
 import { login, userSlice } from '../../store/slices/userSlice';
+
+import { Button } from '@material-ui/core';
 import Item from './Item';
 import Note from './Note';
+import { Redirect } from 'react-router-dom';
 import TimeTable from './TimeTable';
-import Todo from './Todo/index.js';
+import Todo from './Todo';
+import { selectSlice } from '../../store';
+import { useDispatch } from 'react-redux';
 
 const Home = () => {
   const dispatch = useDispatch();

@@ -1,11 +1,11 @@
-import React from 'react';
+import { AppBar, Button, IconButton, Toolbar } from '@material-ui/core';
+
 import { Link } from 'react-router-dom';
 import MenuIcon from '@material-ui/icons/Menu';
-import { AppBar, Button, IconButton, Toolbar } from '@material-ui/core';
-import { useDispatch } from 'react-redux';
-
-import { logout } from '../store/slices/userSlice/index.js';
+import React from 'react';
+import { logout } from '../store/slices/userSlice';
 import { selectSlice } from '../store';
+import { useDispatch } from 'react-redux';
 import { userSlice } from '../store/slices/userSlice';
 
 const Navbar = () => {

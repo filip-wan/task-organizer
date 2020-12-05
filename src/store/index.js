@@ -1,11 +1,12 @@
 import {
-  configureStore,
   combineReducers,
+  configureStore,
   getDefaultMiddleware,
 } from '@reduxjs/toolkit';
+
+import items from './slices/itemsSlice';
 import { useSelector } from 'react-redux';
-import user from './slices/userSlice/index.js';
-import items from './slices/itemsSlice/index.js';
+import user from './slices/userSlice';
 
 export const selectSlice = (slice) => () =>
   useSelector((state) => state[slice.name]);

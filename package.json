@@ -15,7 +15,8 @@
     "react-redux": "^7.2.1",
     "react-resizable": "^1.11.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^4.0.0"
+    "react-scripts": "^4.0.0",
+    "rrule": "^2.6.6"
   },
   "scripts": {
     "start": "react-scripts start -r dotenv/config",
