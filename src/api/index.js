@@ -5,11 +5,17 @@ const api = async (method, url, callback, body) =>
     credentials: 'include',
     body,
   })
-    .then((response) => response.status === 200 && response.json())
+    .then((response) => (response.status === 200 ? response.json() : response))
+    .then((response) => {
+      console.log(
+        `%c ${method} `,
+        'background-color: lightblue; color: black;',
+        process.env.REACT_APP_API_URL + url,
+        response
+      );
+      return response;
+    })
     .then(callback)
-    .finally((response) =>
-      console.log(method, process.env.REACT_APP_API_URL + url, response)
-    )
-    .catch((err) => console.error('ERROR!', err));
+    .catch((err) => console.log('ERROR!', err));
 
 export default api;

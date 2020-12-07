@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import {
+  categoriesSlice,
+  fetchCategories,
+} from '../../store/slices/categoriesSlice';
+import {
   fetchAllItems,
   itemsSlice,
   postItem,
@@ -19,12 +23,19 @@ const Home = () => {
   const dispatch = useDispatch();
   const user = selectSlice(userSlice)();
   const items = selectSlice(itemsSlice)();
+
   const [loginRedirect, setLoginRedirect] = useState(false);
+  const categories = selectSlice(categoriesSlice)();
+  const selectedCategories =
+    categories.filter((c) => c.toggled).map((c) => c.id) || [];
 
   useEffect(() => {
-    dispatch(login()).then(
-      (e) => e.payload?.success && dispatch(fetchAllItems())
-    );
+    dispatch(login()).then((e) => {
+      if (e.payload?.success) {
+        dispatch(fetchCategories());
+        dispatch(fetchAllItems());
+      }
+    });
   }, [dispatch]);
 
   useEffect(() => {
@@ -70,13 +81,19 @@ const Home = () => {
         }>
         Add TimeTable
       </Button>
-      {items.map((item) => (
-        <Item item={item} key={item.id}>
-          {item.type === 'note' && <Note item={item} />}
-          {item.type === 'todo' && <Todo item={item} />}
-          {item.type === 'timeTable' && <TimeTable item={item} />}
-        </Item>
-      ))}
+      {items
+        .filter(
+          (i) =>
+            !selectedCategories.length > 0 ||
+            selectedCategories.some((c) => i.categories.includes(c))
+        )
+        .map((item) => (
+          <Item item={item} key={item.id}>
+            {item.type === 'note' && <Note item={item} />}
+            {item.type === 'todo' && <Todo item={item} />}
+            {item.type === 'timeTable' && <TimeTable item={item} />}
+          </Item>
+        ))}
     </div>
   );
 };

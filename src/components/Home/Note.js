@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { Card, TextField } from '@material-ui/core';
+import React, { useState } from 'react';
 
 import { putItem } from '../../store/slices/itemsSlice';
+import { useDispatch } from 'react-redux';
 
 const Note = ({ item }) => {
   const dispatch = useDispatch();

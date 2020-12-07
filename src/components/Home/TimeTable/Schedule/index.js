@@ -5,7 +5,6 @@ import { RRule, rrulestr } from 'rrule';
 import React, { useEffect, useState } from 'react';
 import { days, getColumns } from './utils';
 
-import CalendarPicker from './CalendarPicker';
 import SaveIcon from '@material-ui/icons/Save';
 import api from '../../../../api';
 import { makeStyles } from '@material-ui/core/styles';
@@ -51,16 +50,12 @@ const Schedule = ({ item }) => {
       <Grid container spacing={2} className={classes.grid}>
         <Grid item xs={12}>
           <Grid container justify='space-evenly' spacing={2}>
-            {item.google ? (
-              item.events?.length ? (
-                getColumns(days, { rules: item.events })
-              ) : rules ? (
-                getColumns(days, { rules }, [selectedEvents, setSelectedEvents])
-              ) : (
-                <CircularProgress />
-              )
+            {item.events?.length ? (
+              getColumns(days, { rules: item.events })
+            ) : rules ? (
+              getColumns(days, { rules }, [selectedEvents, setSelectedEvents])
             ) : (
-              <CalendarPicker item={item} />
+              <CircularProgress />
             )}
           </Grid>
         </Grid>
