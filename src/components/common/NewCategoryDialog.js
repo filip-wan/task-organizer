@@ -43,7 +43,6 @@ const NewCategoryDialog = ({ open, setOpen }) => {
           color='secondary'
           autoFocus
           margin='dense'
-          id='name'
           label='Label'
           fullWidth
           value={labelField}
@@ -54,7 +53,6 @@ const NewCategoryDialog = ({ open, setOpen }) => {
         <TextField
           color='secondary'
           margin='dense'
-          id='name'
           label='Color'
           fullWidth
           value={colorField}

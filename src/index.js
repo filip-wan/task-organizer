@@ -1,19 +1,20 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import { Provider } from 'react-redux';
-import store from './store';
 import {
-  createMuiTheme,
   CssBaseline,
   MuiThemeProvider,
+  createMuiTheme,
 } from '@material-ui/core';
+
+import App from './App';
+import { Provider } from 'react-redux';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import store from './store';
 
 const theme = createMuiTheme({
   palette: {
     type: 'dark',
     primary: { main: '#53206E' },
-    secondary: { main: '#3e53c2' },
+    secondary: { main: '#8fa0ff' },
   },
   overrides: {
     /** Custom scrollbar */
