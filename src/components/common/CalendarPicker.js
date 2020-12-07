@@ -3,8 +3,8 @@ import 'react-calendar/dist/Calendar.css';
 import { CircularProgress, List, ListItem } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 
-import api from '../../../../api';
-import { putItem } from '../../../../store/slices/itemsSlice';
+import api from '../../api';
+import { putItem } from '../../store/slices/itemsSlice';
 import { useDispatch } from 'react-redux';
 
 const CalendarPicker = ({ item }) => {
