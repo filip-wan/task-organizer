@@ -28,7 +28,7 @@ const Item = ({ item, children }) => {
           if (e.shiftKey) return false;
         }}
         key={item.id}
-        cancel='.button-resize, .react-calendar'
+        cancel='.button-resize, .react-calendar, [role="dialog"]'
         defaultPosition={{ ...item.position }}>
         <ResizableBox
           minConstraints={[120, 120]}

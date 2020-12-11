@@ -5,20 +5,14 @@ import { RRule, rrulestr } from 'rrule';
 import React, { useEffect, useState } from 'react';
 import { days, getColumns } from './utils';
 
-import CalendarPicker from '../../../common/CalendarPicker';
+import CalendarPicker from '../CalendarPicker';
 import SaveIcon from '@material-ui/icons/Save';
 import api from '../../../../api';
 import { makeStyles } from '@material-ui/core/styles';
 import { putItem } from '../../../../store/slices/itemsSlice';
 import { useDispatch } from 'react-redux';
 
-const frequencies = [
-  RRule.SECONDLY,
-  RRule.MINUTELY,
-  RRule.HOURLY,
-  RRule.DAILY,
-  RRule.WEEKLY,
-];
+const frequencies = [RRule.DAILY, RRule.WEEKLY];
 
 const Schedule = ({ item }) => {
   const classes = useStyles();

@@ -1,5 +1,5 @@
-const api = async (method, url, callback, body) =>
-  fetch(process.env.REACT_APP_API_URL + url, {
+const api = async (method, url, callback, body) => {
+  return fetch(process.env.REACT_APP_API_URL + url, {
     headers: { 'Content-Type': 'application/json' },
     method,
     credentials: 'include',
@@ -17,5 +17,6 @@ const api = async (method, url, callback, body) =>
     })
     .then(callback)
     .catch((err) => console.log('ERROR!', err));
+};
 
 export default api;

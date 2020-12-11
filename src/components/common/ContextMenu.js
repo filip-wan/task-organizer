@@ -9,22 +9,26 @@ import { categoriesSlice } from '../../store/slices/categoriesSlice';
 import { selectSlice } from '../../store';
 import { useDispatch } from 'react-redux';
 import { useNewCategoryDialog } from './NewCategoryDialog';
+import { useNotificationDialog } from './NotificationDialog';
 
 export const ContextMenu = ({ id, props }) => {
   const dispatch = useDispatch();
-  const [openDialog, NewCategoryDialog] = useNewCategoryDialog();
+  const [openCategoryDialog, NewCategoryDialog] = useNewCategoryDialog();
+  const [
+    openNotificationDialog,
+    NewNotificationDialog,
+  ] = useNotificationDialog();
   const categories = selectSlice(categoriesSlice)();
-  const handleItemClick = ({ event, props, triggerEvent, data }) => {
-    event.stopPropagation();
-  };
 
   const onDelete = () => {
     props?.item &&
       dispatch(deleteItem({ id: props?.item.id, type: props?.item.type }));
   };
+
   const onDuplicate = () => {
     props?.item && dispatch(postItem({ ...props?.item, id: undefined }));
   };
+
   const onCategoryClick = ({ event }, category) => {
     const oldCategories = props?.item?.categories ?? [];
     const categories = oldCategories.includes(category.id)
@@ -43,10 +47,21 @@ export const ContextMenu = ({ id, props }) => {
   return (
     <>
       <NewCategoryDialog />
+      {props?.item?.type === 'todo' && (
+        <NewNotificationDialog item={props.item} />
+      )}
       <Menu id={id} theme='dark' style={{ position: 'absolute' }}>
-        <Item onClick={handleItemClick}>Connect</Item>
-        <Item onClick={handleItemClick}>Notification</Item>
-        <Separator />
+        {props?.item?.type === 'todo' && (
+          <>
+            <Item
+              onClick={() => {
+                openNotificationDialog();
+              }}>
+              Deadline
+            </Item>
+            <Separator />
+          </>
+        )}
         <Submenu label='Category'>
           {categories.map((c) => (
             <Item key={c.id} onClick={(e) => onCategoryClick(e, c)}>
@@ -55,7 +70,7 @@ export const ContextMenu = ({ id, props }) => {
               {c.label}
             </Item>
           ))}
-          <Item onClick={() => openDialog(true)}>
+          <Item onClick={() => openCategoryDialog(true)}>
             <AddCircleIcon style={{ color: 'white', marginRight: 10 }} />
             New Category
           </Item>

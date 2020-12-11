@@ -1,5 +1,5 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
 import api from '../../../api';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const putItem = createAsyncThunk(
   'items/putItem',

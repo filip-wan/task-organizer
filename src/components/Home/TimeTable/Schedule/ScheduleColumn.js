@@ -16,14 +16,16 @@ const ScheduleColumn = ({ day, events, selectedEvents = [] }) => {
           (a, b) =>
             new Date(b.dateStart).valueOf() - new Date(a.dateEnd).valueOf()
         )
-        .map((event) => (
-          <ScheduleEvent
-            key={event.googleId || event._id}
-            day={day}
-            event={event}
-            selectedEvents={selectedEvents}
-          />
-        ))}
+        .map((event) => {
+          return (
+            <ScheduleEvent
+              key={event.googleId || event._id}
+              day={day}
+              event={event}
+              selectedEvents={selectedEvents}
+            />
+          );
+        })}
     </List>
   );
 };

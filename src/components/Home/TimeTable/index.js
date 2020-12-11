@@ -3,7 +3,6 @@ import 'react-calendar/dist/Calendar.css';
 import { Card, TextField } from '@material-ui/core';
 import React, { useState } from 'react';
 
-import CustomCalendar from './CustomCalendar';
 import Schedule from './Schedule';
 import { makeStyles } from '@material-ui/core/styles';
 import { putItem } from '../../../store/slices/itemsSlice';
@@ -58,7 +57,7 @@ const TimeTable = ({ item }) => {
           }}
         />
       )}
-      {false ? <CustomCalendar /> : <Schedule item={item} />}
+      <Schedule item={item} />
     </Card>
   );
 };
