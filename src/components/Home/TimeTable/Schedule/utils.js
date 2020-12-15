@@ -20,12 +20,18 @@ export const getDate = (days) => {
   return [date, secondDate];
 };
 
-export const getColumns = (daysToMap, { rules = [] }, selectedEvents) =>
+export const getColumns = (
+  daysToMap,
+  { rules = [] },
+  selectedEvents,
+  timetable
+) =>
   Object.keys(daysToMap).map((day) => (
     <ScheduleColumn
       key={day}
       day={day}
       selectedEvents={selectedEvents}
+      timetable={timetable}
       events={[
         ...rules.reduce(
           (arr, r) => [

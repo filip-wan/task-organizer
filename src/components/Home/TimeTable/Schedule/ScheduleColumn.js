@@ -6,7 +6,7 @@ import React from 'react';
 import ScheduleEvent from './ScheduleEvent';
 import { days } from './utils';
 
-const ScheduleColumn = ({ day, events, selectedEvents = [] }) => {
+const ScheduleColumn = ({ day, events, selectedEvents = [], timetable }) => {
   return (
     <List>
       <ListItem>{days[day]}</ListItem>
@@ -23,6 +23,7 @@ const ScheduleColumn = ({ day, events, selectedEvents = [] }) => {
               day={day}
               event={event}
               selectedEvents={selectedEvents}
+              timetable={timetable}
             />
           );
         })}

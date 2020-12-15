@@ -1,14 +1,18 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { ListItem, TextField, Checkbox } from '@material-ui/core';
-import CloseIcon from '@material-ui/icons/Close';
+import { Checkbox, ListItem, TextField } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
 
+import CloseIcon from '@material-ui/icons/Close';
 import { putItem } from '../../../store/slices/itemsSlice';
+import { useDispatch } from 'react-redux';
 
 const TodoItem = ({ item, todoItem, isNew }) => {
   const dispatch = useDispatch();
   const [text, setText] = useState(todoItem?.text ?? '');
   const [state, setState] = useState(todoItem?.state ?? false);
+
+  useEffect(() => {
+    setState(todoItem?.state ?? false);
+  }, [todoItem]);
 
   const saveItem = () => {
     if ((todoItem?.text ?? '') !== text) {

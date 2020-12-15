@@ -12,7 +12,9 @@ const CalendarPicker = ({ item }) => {
   const [calendars, setCalendars] = useState(null);
 
   useEffect(() => {
-    api('GET', 'calendars').then((data) => setCalendars(data));
+    api('GET', 'calendars').then((data) => {
+      if (Array.isArray(data)) setCalendars(data);
+    });
   }, []);
 
   return calendars ? (

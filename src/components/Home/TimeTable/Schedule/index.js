@@ -47,9 +47,14 @@ const Schedule = ({ item }) => {
           <Grid container justify='space-evenly' spacing={2}>
             {item.google ? (
               item.events?.length ? (
-                getColumns(days, { rules: item.events })
+                getColumns(days, { rules: item.events }, undefined, item)
               ) : rules ? (
-                getColumns(days, { rules }, [selectedEvents, setSelectedEvents])
+                getColumns(
+                  days,
+                  { rules },
+                  [selectedEvents, setSelectedEvents],
+                  item
+                )
               ) : (
                 <CircularProgress />
               )

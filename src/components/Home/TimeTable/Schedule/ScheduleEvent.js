@@ -7,7 +7,7 @@ import { getHour } from './utils';
 import { makeStyles } from '@material-ui/core/styles';
 import { useEventDialog } from './EventDialog';
 
-const ScheduleEvent = ({ day, event, selectedEvents = [] }) => {
+const ScheduleEvent = ({ day, event, selectedEvents = [], timetable }) => {
   const classes = useStyles();
   const [openDialog, EventDialog] = useEventDialog();
   const start = new Date(event.dateStart);
@@ -20,6 +20,7 @@ const ScheduleEvent = ({ day, event, selectedEvents = [] }) => {
         day={day}
         event={event}
         hour={`${getHour(start)} - ${getHour(end)}`}
+        timetable={timetable}
       />
       <ListItem
         key={event.googleId}
