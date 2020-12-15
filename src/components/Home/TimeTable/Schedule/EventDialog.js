@@ -149,16 +149,7 @@ const EventDialog = ({ open, setOpen, event, day, hour }) => {
           onClick={() => {
             setOpen(false);
           }}>
-          Cancel
-        </Button>
-        <Button
-          onClick={() => {
-            // if (!labelField || !colorField) return false;
-
-            // dispatch(postCategory({ label: labelField, color: colorField }));
-            setOpen(false);
-          }}>
-          Create
+          Ok
         </Button>
       </DialogActions>
     </Dialog>

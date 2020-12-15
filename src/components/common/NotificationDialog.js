@@ -133,20 +133,20 @@ const NewNotificationDialog = ({ open, setOpen, item }) => {
         <Button
           onClick={() => {
             if (item.deadline) {
-              item.notification
-                ? dispatch(
-                    deleteNotification({
-                      id: item.notification.id,
-                      type: 'item',
-                    })
-                  )
-                : dispatch(
-                    putItem({
-                      id: item.id,
-                      type: item.type,
-                      deadline: undefined,
-                    })
-                  );
+              if (item.notification)
+                dispatch(
+                  deleteNotification({
+                    id: item.notification.id,
+                    type: 'item',
+                  })
+                );
+              dispatch(
+                putItem({
+                  id: item.id,
+                  type: item.type,
+                  deadline: '',
+                })
+              );
             } else {
               const date = new Date(dateField.getTime() - notificationOffset);
               dispatch(
@@ -155,7 +155,7 @@ const NewNotificationDialog = ({ open, setOpen, item }) => {
                   type: 'item',
                   recurring: false,
                   date,
-                  label: item.summary,
+                  label: `Deadline: ${item.title}`,
                   description: descriptionField,
                 })
               );

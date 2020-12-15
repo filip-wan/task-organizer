@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 
 const Note = ({ item }) => {
   const dispatch = useDispatch();
-  const [title, setTitle] = useState(item.title);
+  const [title, setTitle] = useState(item.title || '');
   const [description, setDescription] = useState(item.description);
 
   return (

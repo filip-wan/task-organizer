@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 
 const Todo = ({ item }) => {
   const dispatch = useDispatch();
-  const [title, setTitle] = useState(item.title);
+  const [title, setTitle] = useState(item.title || '');
   const [description, setDescription] = useState(item.description);
   const [descriptionVisible, setDescriptionVisible] = useState(
     !!item.description
