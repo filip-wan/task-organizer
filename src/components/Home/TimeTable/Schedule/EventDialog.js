@@ -50,7 +50,7 @@ const EventDialog = ({ open, setOpen, event, day, hour, timetable }) => {
 
   useEffect(() => {
     setConnections(
-      event.connections.map((connection) => {
+      event.connections?.map((connection) => {
         return (
           items.find((i) => i.id === connection) ||
           items
@@ -100,7 +100,7 @@ const EventDialog = ({ open, setOpen, event, day, hour, timetable }) => {
         </DialogContentText>
 
         {connections
-          .filter((c) => c !== undefined)
+          ?.filter((c) => c !== undefined)
           .map((connection) => (
             <Card
               key={connection._id}
