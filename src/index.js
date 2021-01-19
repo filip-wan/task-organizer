@@ -14,7 +14,7 @@ const theme = createMuiTheme({
   palette: {
     type: 'dark',
     primary: { main: '#53206E' },
-    secondary: { main: '#8fa0ff' },
+    secondary: { main: '#abb8ff' },
   },
   overrides: {
     /** Custom scrollbar */

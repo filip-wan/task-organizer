@@ -10,7 +10,8 @@ import {
 } from '../../store/slices/itemsSlice';
 import { login, userSlice } from '../../store/slices/userSlice';
 
-import { Button } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
+import { Fab } from '@material-ui/core';
 import Item from './Item';
 import Note from './Note';
 import { Redirect } from 'react-router-dom';
@@ -45,42 +46,59 @@ const Home = () => {
   return (
     <div>
       {loginRedirect && <Redirect to='login' />}
-      <Button
-        onClick={(e) =>
-          dispatch(
-            postItem({
-              type: 'note',
-              position: { x: 20, y: 20 },
-              size: { height: 400, width: 200 },
-            })
-          )
-        }>
-        Add Note
-      </Button>
-      <Button
-        onClick={(e) =>
-          dispatch(
-            postItem({
-              type: 'todo',
-              position: { x: 20, y: 20 },
-              size: { height: 400, width: 200 },
-            })
-          )
-        }>
-        Add Todo
-      </Button>
-      <Button
-        onClick={(e) =>
-          dispatch(
-            postItem({
-              type: 'timeTable',
-              position: { x: 20, y: 20 },
-              size: { height: 400, width: 200 },
-            })
-          )
-        }>
-        Add TimeTable
-      </Button>
+      <div>
+        <Fab
+          color='secondary'
+          style={{ margin: '10px 5px' }}
+          onClick={(e) =>
+            dispatch(
+              postItem({
+                type: 'note',
+                position: { x: 20, y: 20 },
+                size: { height: 400, width: 200 },
+              })
+            )
+          }
+          size='medium'
+          variant='extended'>
+          <AddIcon />
+          Note
+        </Fab>
+        <Fab
+          color='secondary'
+          style={{ margin: '10px 5px' }}
+          onClick={(e) =>
+            dispatch(
+              postItem({
+                type: 'todo',
+                position: { x: 20, y: 20 },
+                size: { height: 400, width: 200 },
+              })
+            )
+          }
+          size='medium'
+          variant='extended'>
+          <AddIcon />
+          Todo
+        </Fab>
+        <Fab
+          color='secondary'
+          style={{ margin: '10px 5px' }}
+          onClick={(e) =>
+            dispatch(
+              postItem({
+                type: 'timeTable',
+                position: { x: 20, y: 20 },
+                size: { height: 400, width: 800 },
+              })
+            )
+          }
+          size='medium'
+          variant='extended'>
+          <AddIcon />
+          TimeTable
+        </Fab>
+      </div>
       {items
         .filter(
           (i) =>

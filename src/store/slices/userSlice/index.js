@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { deleteUser } from './deleteUser';
+import { editUser } from './editUser';
 import { login } from './login';
 import { logout } from './logout';
-import { edit } from './edit';
 
 export const userSlice = createSlice({
   name: 'user',
@@ -14,10 +15,13 @@ export const userSlice = createSlice({
     [logout.fulfilled]: (_state, _action) => ({
       authorized: false,
     }),
-    [edit.fulfilled]: (state, action) => ({ ...state, ...action.payload }),
+    [deleteUser.fulfilled]: (_state, _action) => ({
+      authorized: false,
+    }),
+    [editUser.fulfilled]: (state, action) => ({ ...state, ...action.payload }),
   },
 });
 
-export { login, logout, edit };
+export { login, logout, editUser, deleteUser };
 
 export default userSlice.reducer;
